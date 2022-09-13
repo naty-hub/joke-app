@@ -13,5 +13,5 @@ jobs:
         with:
           node-version: 16
       - run: npm ci
-      - run: nom run build
+      - run: npm run build
       - run: npm test
