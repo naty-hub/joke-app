@@ -13,4 +13,4 @@ jobs:
         with:
           token: ${{ secrets.REPO_PAT }}
           event-type: MyCustomEventName
-          client-payload: '{"MyFirstJob": "Loan"}'
+          client-payload: '{"MyFirstJob": "Naty"}'

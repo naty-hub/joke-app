@@ -1,0 +1,23 @@
+name: Exercice
+
+on:
+  push:
+    branches:
+      - 'dev'
+      - 'feat/**'
+      - '!staging'
+    paths:
+      - '**.ts'
+      - 'src/**'
+  pull_request:
+    types: [opened, closed]
+  schedule:
+    - cron: '*/5 * * * *'
+    - cron: '0 3 * * TUE'
+
+
+
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
