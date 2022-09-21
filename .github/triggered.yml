@@ -1,0 +1,14 @@
+name: Target for call from another workflow
+
+on:
+  repository_dispatch:
+    types: [MyCustomEventName]
+
+jobs:
+  myjob:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print client payload
+        run: |
+          echo 'MyFirstJob' is ${{github.event.client_payload.MyFirstJob }}

@@ -1,0 +1,16 @@
+name: Call another workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  secondJob:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repository dispatch
+        uses: peter-evans/repository-dispatch@v1.1.2
+        with:
+          token: ${{ secrets.REPO_PAT }}
+          event-type: MyCustomEventName
+          client-payload: '{"MyFirstJob": "Loan"}'
