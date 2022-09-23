@@ -3,7 +3,24 @@ version: 2.1
 orbs:
   node: circleci/node@5.0.2
   heroku: circleci/heroku@1.2.6
+  docker: circleci/docker@2.1.4
 
+jobs:
+  build-and-push:
+    executor: docker/docker
+    steps:
+      - setup_remote_docker
+      - checkout
+      - docker/check
+      - docker/build:
+          image: my_repo/orb-test
+      - docker/push:
+          digest-path: /tmp/digest.txt
+          image: my_repo/orb-test
+      - run:
+          command: |
+            echo "Digest is: $(</tmp/digest.txt)"
+            
 workflows:
   build:
     jobs:
@@ -33,9 +50,8 @@ workflows:
           filters:
             branches:
               only:
-                - main 
-      - heroku/push-docker-image:
-          
+                - deploy 
+      - build-and-push:          
           filters:
             branches:
               only:
