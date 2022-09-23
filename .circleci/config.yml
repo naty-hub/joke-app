@@ -2,20 +2,47 @@ version: 2.1
 
 orbs:
   node: circleci/node@5.0.2
+  heroku: circleci/heroku@1.2.6
 
+jobs:
+  deploy:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - run:
+          command: >
+            echo "The command above installs Heroku, the command below deploys.
+            What you do inbetween is up to you!"
+      - heroku/deploy-via-git
 
 workflows:
   build:
     jobs:
       - node/test:
-        filters:
-          branches:
-            only:
-              - main  
-              
+          matrix:
+            parameters:
+              version:
+                - '16.15'
+                - '14.19'
+                - '12.13'
+          filters:
+            branches:
+              only:
+                - main  
+
       - node/run:
-        npm-run: build
+          npm-run: build
+          filters:
+            branches:
+              only:
+                - main  
+      - heroku/deploy-via-git:
+        app-name: "joke-app-nat-circle"   
+        requires:
+          - 'node/test'
+          - 'node/run' 
         filters:
           branches:
             only:
-              - main         
+              - main    
