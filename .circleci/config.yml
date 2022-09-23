@@ -5,6 +5,17 @@ orbs:
   heroku: circleci/heroku@1.2.6
   docker: circleci/docker@2.1.4
 
+executors:
+  docker:
+    # Define the image tag
+    environment:
+      IMAGE_TAG: ${{DOCKERHUB_USERNAME}}/app:latest
+      auth:
+        username: ${{DOCKERHUB_USERNAME}}
+        password: ${{DOCKERHUB_PASSWORD}}
+    # Use `docker:stable` as the Docker image for this executor
+    docker:
+      - image: docker:stable
 jobs:
   build-and-push:
     executor: docker/docker
@@ -20,7 +31,7 @@ jobs:
       - run:
           command: |
             echo "Digest is: $(</tmp/digest.txt)"
-            
+
 workflows:
   build:
     jobs:
