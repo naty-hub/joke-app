@@ -38,11 +38,11 @@ workflows:
               only:
                 - main  
       - heroku/deploy-via-git:
-        app-name: "joke-app-nat-circle"   
-        requires:
-          - 'node/test'
-          - 'node/run' 
-        filters:
-          branches:
-            only:
-              - main    
+          app-name: joke-app-nat-circle  
+          requires:
+            - 'node/test'
+            - 'node/run' 
+          filters:
+            branches:
+              only:
+                - main    
