@@ -9,10 +9,10 @@ executors:
   docker:
     # Define the image tag
     environment:
-      IMAGE_TAG: $DOCKERHUB_USERNAME/app:latest
+      IMAGE_TAG: DOCKERHUB_USERNAME/app:latest
       auth:
-        username: $DOCKERHUB_USERNAME
-        password: $DOCKERHUB_PASSWORD
+        username: DOCKERHUB_USERNAME
+        password: DOCKERHUB_PASSWORD
     # Use `docker:stable` as the Docker image for this executor
     docker:
       - image: docker:stable
