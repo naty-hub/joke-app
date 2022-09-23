@@ -13,7 +13,7 @@ jobs:
 workflows:
   node-test:
     jobs:
-      - build-test
+      - build-test:
         filters:
           branches:
             only:
