@@ -4,18 +4,6 @@ orbs:
   node: circleci/node@5.0.2
   heroku: circleci/heroku@1.2.6
 
-jobs:
-  deploy:
-    executor: heroku/default
-    steps:
-      - checkout
-      - heroku/install
-      - run:
-          command: >
-            echo "The command above installs Heroku, the command below deploys.
-            What you do inbetween is up to you!"
-      - heroku/deploy-via-git
-
 workflows:
   build:
     jobs:
@@ -45,4 +33,10 @@ workflows:
           filters:
             branches:
               only:
-                - main    
+                - main 
+      - heroku/push-docker-image:
+          
+          filters:
+            branches:
+              only:
+                - main
