@@ -13,10 +13,10 @@ jobs:
       - checkout
       - docker/check
       - docker/build:
-          image: my_repo/orb-test
+          image: $PARAM_DOCKER_USERNAME/joke-api
       - docker/push:
           digest-path: /tmp/digest.txt
-          image: my_repo/orb-test
+          image: $PARAM_DOCKER_USERNAME/joke-api
       - run:
           command: |
             echo "Digest is: $(</tmp/digest.txt)"
