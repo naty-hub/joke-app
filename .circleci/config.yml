@@ -5,17 +5,6 @@ orbs:
   heroku: circleci/heroku@1.2.6
   docker: circleci/docker@2.1.4
 
-executors:
-  docker:
-    # Define the image tag
-    environment:
-      IMAGE_TAG: DOCKERHUB_USERNAME/app:latest
-      auth:
-        username: DOCKERHUB_USERNAME
-        password: DOCKERHUB_PASSWORD
-    # Use `docker:stable` as the Docker image for this executor
-    docker:
-      - image: docker:stable
 jobs:
   build-and-push:
     executor: docker/docker
@@ -62,7 +51,10 @@ workflows:
             branches:
               only:
                 - deploy 
-      - build-and-push:          
+      - build-and-push:  
+          requires:
+            - 'node/test'
+            - 'node/run'        
           filters:
             branches:
               only:
