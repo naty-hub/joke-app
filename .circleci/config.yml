@@ -5,7 +5,7 @@ orbs:
 
 
 workflows:
-  node-test:
+  build:
     jobs:
       - node/test:
         filters:
